@@ -1,0 +1,17 @@
+{
+  "name": "npm-scripts",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "ns": "./bin/ns"
+  },
+  "author": "Ilya Radchenko <ilya@burstcreations.com>",
+  "license": "ISC",
+  "dependencies": {
+    "inquirer": "^0.8.1"
+  }
+}
