@@ -24,3 +24,13 @@ $ ns
 ```
 
 _The above is just example output._
+
+You can also use `ns [command]` as a shortcut. So something like this:
+
+```
+ns install
+ns build
+ns start
+```
+
+For available options, use `ns -h`.
