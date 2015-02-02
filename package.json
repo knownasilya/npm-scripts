@@ -9,10 +9,14 @@
   "bin": {
     "ns": "./bin/ns"
   },
+  "repository": {
+    "url": "https://github.com/knownasilya/npm-scripts",
+    "type": "git"
+  },
   "author": "Ilya Radchenko <ilya@burstcreations.com>",
   "license": "ISC",
   "dependencies": {
-    "inquirer": "^0.8.1",
+    "inquirer": "^0.8.0",
     "ltcdr": "^2.2.1",
     "mothership": "^0.3.0"
   }
