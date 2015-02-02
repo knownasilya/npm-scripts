@@ -3,10 +3,14 @@
 var cli = require('ltcdr');
 var path = require('path');
 var spawn = require('child_process').spawn;
+var mothership = require('mothership');
 var inquirer = require('inquirer');
 var pkg = require('./package');
 
-var targetPkg = loadTargetPackage();
+var packRes = mothership.sync(process.cwd(), function (pack) {
+  return pack.name;
+});
+var targetPkg = packRes.pack;
 var defaultCommands = ['test', 'install', 'start'];
 var commands = targetPkg.scripts ? Object.keys(targetPkg.scripts) : [];
 var allCommands = mergeDefaultCommands(commands, defaultCommands);
@@ -27,36 +31,6 @@ cli
     }
   });
 
-function mergeDefaultCommands(commands, defaultCommands) {
-  defaultCommands.forEach(function (item) {
-    if (commands.indexOf(item) === -1) {
-      commands.push(item);
-    }
-  });
-
-  return commands;
-}
-
-function runCommand(command) {
-  var args = [command];
-
-  if (defaultCommands.indexOf(command) === -1) {
-    args.unshift('run');
-  }
-
-  //console.log('Running `npm ' + args.join(' ') + '` command.');
-
-  return spawn('npm', args, { stdio: 'inherit' });
-}
-
-function loadTargetPackage() {
-  try {
-    return require(path.join(process.cwd(), 'package.json'));
-  } catch(e) {
-    return {};
-  }
-}
-
 cli.parse(process.argv);
 
 if (process.argv.length === 2) {
@@ -71,4 +45,26 @@ if (process.argv.length === 2) {
   ], function(answers) {
     runCommand(answers.command);
   });
+}
+
+function runCommand(command) {
+  var args = [command];
+
+  if (defaultCommands.indexOf(command) === -1) {
+    args.unshift('run');
+  }
+
+  //console.log('Running `npm ' + args.join(' ') + '` command.');
+
+  return spawn('npm', args, { stdio: 'inherit' });
+}
+
+function mergeDefaultCommands(commands, defaultCommands) {
+  defaultCommands.forEach(function (item) {
+    if (commands.indexOf(item) === -1) {
+      commands.push(item);
+    }
+  });
+
+  return commands;
 }

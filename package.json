@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "inquirer": "^0.8.1",
-    "ltcdr": "^2.2.1"
+    "ltcdr": "^2.2.1",
+    "mothership": "^0.3.0"
   }
 }
