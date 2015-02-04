@@ -27,7 +27,20 @@ cli
       runCommand(command);
     }
     else {
-      console.log('Command \'' + command + '\' doesn\'t exist in this project, try `ns` instead.');
+      var possible = allCommands.filter(function (possibleCommand) {
+        return possibleCommand.indexOf(command) === 0;
+      });
+
+      if (possible.length === 1) {
+        console.log('Shortcut used for `' + possible[0] + '`.');
+        runCommand(possible[0]);
+      }
+      else if (possible.length > 1) {
+        console.log('Command not found, did you mean one of these: ' + possible.join(', ') + '?');
+      }
+      else {
+        console.log('Command \'' + command + '\' doesn\'t exist in this project, try `ns` instead.');
+      }
     }
   });
 
