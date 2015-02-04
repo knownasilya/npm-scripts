@@ -33,4 +33,6 @@ ns build
 ns start
 ```
 
+This also works with the beginning of the command like `ns i` for `ns install`.
+
 For available options, use `ns -h`.
