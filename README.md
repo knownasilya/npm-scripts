@@ -2,6 +2,8 @@
 
 Run your npm scripts more efficiently
 
+[![NPM](https://nodei.co/npm/npm-scripts.png?downloads=true&stars=true)](https://nodei.co/npm/npm-scripts/)
+
 ## Usage
 
 ```
