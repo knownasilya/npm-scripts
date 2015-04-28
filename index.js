@@ -11,6 +11,12 @@ var packRes = mothership.sync(process.cwd(), function (pack) {
   return pack.name;
 });
 var targetPkg = packRes.pack;
+
+if (!targetPkg) {
+  console.error('Sorry, but we could not find a `package.json` file');
+  process.exit(1);
+}
+
 var defaultCommands = ['test', 'install', 'start'];
 var commands = targetPkg.scripts ? Object.keys(targetPkg.scripts) : [];
 var allCommands = mergeDefaultCommands(commands, defaultCommands);
