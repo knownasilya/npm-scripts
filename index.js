@@ -42,7 +42,8 @@ cli
         runCommand(possible[0]);
       }
       else if (possible.length > 1) {
-        console.log('Command not found, did you mean one of these: ' + possible.join(', ') + '?');
+        console.log('Multiple possibilities found, please choose one');
+        chooseCommand(possible);
       }
       else {
         console.log('Command \'' + command + '\' doesn\'t exist in this project, try `ns` instead.');
@@ -53,17 +54,7 @@ cli
 cli.parse(process.argv);
 
 if (process.argv.length === 2) {
-  inquirer.prompt([
-    {
-      type: 'list',
-      name: 'command',
-      message: 'Select a package.json script command to run, e.g. npm run [command].',
-      default: 'start',
-      choices: mergeDefaultCommands(commands, defaultCommands)
-    }
-  ], function(answers) {
-    runCommand(answers.command);
-  });
+  chooseCommand(mergeDefaultCommands(commands, defaultCommands));
 }
 
 function runCommand(command) {
@@ -86,4 +77,18 @@ function mergeDefaultCommands(commands, defaultCommands) {
   });
 
   return commands;
+}
+
+function chooseCommand(availableCommands) {
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'command',
+      message: 'Select a package.json script command to run, e.g. npm run [command].',
+      default: 'start',
+      choices: availableCommands
+    }
+  ], function(answers) {
+    runCommand(answers.command);
+  });
 }
